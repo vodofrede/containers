@@ -1,0 +1,15 @@
+FROM docker.io/library/alpine
+RUN apk add --no-cache openjdk8-jre openjdk17-jre openjdk21-jre curl screen
+
+ENV MINECRAFT_VERSION=1.21.2
+ENV FABRIC_LOADER_VERSION=0.16.7
+ENV FABRIC_INSTALLER_VERSION=1.0.1
+
+WORKDIR /app
+COPY files/* .
+RUN curl -OJ https://meta.fabricmc.net/v2/versions/loader/${MINECRAFT_VERSION}/${FABRIC_LOADER_VERSION}/${FABRIC_INSTALLER_VERSION}/server/jar
+
+VOLUME /data
+RUN echo "level-name=/data/world" >> /app/server.properties
+
+CMD java -jar fabric-server-mc.${MINECRAFT_VERSION}-loader.${FABRIC_LOADER_VERSION}-launcher.${FABRIC_INSTALLER_VERSION}.jar nogui
