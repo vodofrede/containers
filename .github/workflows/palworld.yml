@@ -23,7 +23,7 @@ jobs:
       with:
         image: ${{ env.CONTAINER_NAME }}
         tags: latest ${{ github.sha }}
-        context: ./${{ env.CONTAINER_NAME}}
+        context: ./${{ env.CONTAINER_NAME }}
         containerfiles: |
           ./${{ env.CONTAINER_NAME }}/Containerfile
         oci: true
