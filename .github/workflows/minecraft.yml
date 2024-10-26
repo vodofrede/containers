@@ -1,7 +1,7 @@
 name: Minecraft
 on:
   push:
-    paths: ["minecraft/**", ".github/**"]
+    paths: ["minecraft/**", ".github/workflows/minecraft.yml"]
 
 env:
     REGISTRY: ghcr.io/${{ github.repository_owner }}

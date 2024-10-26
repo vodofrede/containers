@@ -1,7 +1,7 @@
 name: Palworld
 on:
   push:
-    paths: ["palworld/**", ".github/**"]
+    paths: ["palworld/**", ".github/workflows/palworld.yml"]
 
 env:
     CONTAINER_NAME: palworld
