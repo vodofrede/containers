@@ -1,5 +1,5 @@
 FROM docker.io/cm2network/steamcmd:latest
 
-RUN ./steamcmd.sh +force_install_dir /home/steam/palworld +login anonymous +app_update 2394010 +quit
+RUN ./steamcmd.sh +force_install_dir /home/steam/palworld +login anonymous +app_update 2394010 validate +quit
 
-CMD /home/steam/palworld/PalServer.sh
+CMD /home/steam/palworld/PalServer.sh -publiclobby
