@@ -1,5 +1,7 @@
-name: Build Image using Containerfile
-on: [push]
+name: Minecraft
+on:
+  push:
+    paths: ["minecraft/**"]
 
 env:
     REGISTRY: ghcr.io/${{ github.repository_owner }}
@@ -8,7 +10,7 @@ env:
 
 jobs:
   build:
-    name: Build image
+    name: Build
     runs-on: ubuntu-latest
 
     steps:
