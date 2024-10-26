@@ -20,6 +20,7 @@ jobs:
       with:
         image: ghcr.io/vodofrede/minecraft
         tags: latest ${{ github.sha }}
+        build-context: ./minecraft
         containerfiles: |
           ./minecraft/Containerfile
         oci: true
