@@ -1,17 +1,17 @@
+name: Palworld
+on:
+  push:
+    paths: ["palworld/**", ".github/**"]
+
 env:
     CONTAINER_NAME: palworld
     REGISTRY: ghcr.io/${{ github.repository_owner }}
     REGISTRY_USER: ${{ github.actor }}
     REGISTRY_PASSWORD: ${{ github.token }}
 
-name: ${{ CONTAINER_NAME }}
-on:
-  push:
-    paths: [${{ CONTAINER_NAME }}/**", ".github/**"]
-
 jobs:
   build:
-    name: Build
+    name: ${{ env.CONTAINER_NAME }}
     runs-on: ubuntu-latest
 
     steps:
@@ -21,11 +21,11 @@ jobs:
       id: build-image
       uses: redhat-actions/buildah-build@v2
       with:
-        image: ${{ CONTAINER_NAME }}
+        image: ${{ env.CONTAINER_NAME }}
         tags: latest ${{ github.sha }}
-        context: ./${{ CONTAINER_NAME}}
+        context: ./${{ env.CONTAINER_NAME}}
         containerfiles: |
-          ./${{ CONTAINER_NAME }}/Containerfile
+          ./${{ env.CONTAINER_NAME }}/Containerfile
         oci: true
     - name: Push to registry
       id: push-image
