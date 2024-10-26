@@ -1,0 +1,40 @@
+env:
+    CONTAINER_NAME: palworld
+    REGISTRY: ghcr.io/${{ github.repository_owner }}
+    REGISTRY_USER: ${{ github.actor }}
+    REGISTRY_PASSWORD: ${{ github.token }}
+
+name: ${{ CONTAINER_NAME }}
+on:
+  push:
+    paths: [${{ CONTAINER_NAME }}/**", ".github/**"]
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Build image
+      id: build-image
+      uses: redhat-actions/buildah-build@v2
+      with:
+        image: ${{ CONTAINER_NAME }}
+        tags: latest ${{ github.sha }}
+        context: ./${{ CONTAINER_NAME}}
+        containerfiles: |
+          ./${{ CONTAINER_NAME }}/Containerfile
+        oci: true
+    - name: Push to registry
+      id: push-image
+      uses: redhat-actions/push-to-registry@v2
+      with:
+          image: ${{ steps.build-image.outputs.image }}
+          tags: ${{ steps.build-image.outputs.tags }}
+          registry: ${{ env.REGISTRY }}
+          username: ${{ env.REGISTRY_USER }}
+          password: ${{ env.REGISTRY_PASSWORD }}
+          extra-args: |
+            --disable-content-trust
