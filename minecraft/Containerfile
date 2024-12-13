@@ -1,8 +1,8 @@
 FROM docker.io/library/alpine
 RUN apk add --no-cache openjdk8-jre openjdk17-jre openjdk21-jre curl screen
 
-ENV MINECRAFT_VERSION=1.21.3
-ENV FABRIC_LOADER_VERSION=0.16.7
+ENV MINECRAFT_VERSION=1.21.4
+ENV FABRIC_LOADER_VERSION=0.16.9
 ENV FABRIC_INSTALLER_VERSION=1.0.1
 
 WORKDIR /app
